@@ -2,7 +2,7 @@ public class Items { // Itemsという名前のクラス（プログラムのま
     public static void main(String[] args) { // プログラムの実行はここから始まります。
         String[] todos = { "牛乳を買う", "", "パンを買う", "掃除をする" }; // todosという配列（複数の値を順番に持つもの）に、Todoの文字列（文字の並び）を入れます。
         boolean[] done = { true, false, false, false }; // boolean（trueかfalseを持つ種類）の配列（複数の値を順番に持つもの）で、trueを済、falseを未完了とします。
-        for (int i = 0; i < todos.length; i++) { // iを0から始め、todos.length（Todoの件数）より小さい間、1ずつ増やして繰り返します。
+        for (int i = 0; i <= todos.length; i++) { // iを0から始め、todos.length（Todoの件数）より小さい間、1ずつ増やして繰り返します。
             if (!todos[i].isEmpty()) { // isEmpty()で空かどうかを調べ、!で結果を反転させて、空でないときだけ次の処理を行います。
                 if (done[i]) { // 同じ位置のdone[i]がtrue（済）のとき、次の処理を行います。
                     System.out.println("<li>[済]" + todos[i] + "</li>"); // 済んだTodoには[済]を付けて1行出力します。

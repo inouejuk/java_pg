@@ -1,5 +1,6 @@
 import com.sun.net.httpserver.HttpServer; // Javaに標準で備わる、Webの要求に返事をする機能を使います。
 import java.net.InetSocketAddress; // ポート（通信の出入口）の番号を指定する機能を使います。
+import java.net.URLDecoder; // 今回追加：URL用に変換された文字を元に戻す機能を使います。
 
 public class App { // Appという名前で、プログラム全体をまとめます。
     public static void main(String[] args) throws Exception { // プログラムの実行はここから始まります。
@@ -8,7 +9,14 @@ public class App { // Appという名前で、プログラム全体をまとめ�
             String path = exchange.getRequestURI().getPath(); // 追加：パス（URLの「/hello」などの部分）を取り出します。
             String message;
             if (path.equals("/hello")) { // 追加：パスが「/hello」と同じか比べます。
-                message = "こんにちは！";
+                String query = exchange.getRequestURI().getRawQuery(); // 今回追加：URLの「?」より後ろの文字列を取り出します。
+                System.out.println("query = " + query);// 今回追加：「name=」の後ろを切り出します。
+                String name = "ゲスト"; // 今回変更：名前の指定がないときは「ゲスト」を使います。
+                if (query != null) { // 今回追加：null（値がない状態）でなければ、名前を取り出します。
+                    name = query.substring(5); // 今回変更：「name=」の後ろを切り出します。
+                    name = URLDecoder.decode(name, "UTF-8"); // URL用に変換された文字を元に戻します。
+                } // 今回追加：名前を取り出す処理はここまでです。
+                message = "こんにちは、" + name + "さん！"; // 今回変更：取り出した名前を返事につなげます。
             } else if (path.equals("/bye")) { // 追加：パスが「/bye」と同じか比べます。
                 message = "さようなら！";
             } else if (path.equals("/test")) { // 追加：パスが「/bye」と同じか比べます。

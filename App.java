@@ -4,10 +4,18 @@ import java.net.InetSocketAddress; // ポート（通信の出入口）の番号
 public class App { // Appという名前で、プログラム全体をまとめます。
     public static void main(String[] args) throws Exception { // プログラムの実行はここから始まります。
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0); // 1 8080番のポート（通信の出入口）で待ち受ける準備をします。
-        String text = "ハンドラが動いた";
-        System.out.println(text);
         server.createContext("/", exchange -> { // 0 「/」への要求を受け取ったときの処理を書きます。
-            String message = "test";// 0
+            String path = exchange.getRequestURI().getPath(); // 追加：パス（URLの「/hello」などの部分）を取り出します。
+            String message;
+            if (path.equals("/hello")) { // 追加：パスが「/hello」と同じか比べます。
+                message = "こんにちは！";
+            } else if (path.equals("/bye")) { // 追加：パスが「/bye」と同じか比べます。
+                message = "さようなら！";
+            } else if (path.equals("/test")) { // 追加：パスが「/bye」と同じか比べます。
+                message = "OK";
+            } else {
+                message = "ページが見つかりません";
+            }
             System.out.println(message);
             exchange.getResponseHeaders().set("Content-Type", "text/plain; charset=UTF-8"); // 0
                                                                                             // 普通の文章をUTF-8（日本語も扱える文字の表し方）で返すと伝えます。

@@ -37,7 +37,7 @@ public class App { // Appという名前で、プログラム全体をまとめ�
                         int id = Integer.parseInt(query.substring(3)); // ★追加 「id=」の後ろを切り出し、数に変えます。
                         for (Todo todo : todos) { // ★追加 Todoを1件ずつ取り出します。
                             if (todo.getId() == id) { // ★追加 リンクで指定された番号と一致するか調べます。
-                                todo.setDone(true); // ★追加 一致したTodoを完了にします。
+                                todo.setDone(!todo.isDone()); // ★追加 一致したTodoを完了にします。
                                 break; // ★追加 1件見つかったので、繰り返しを終えます。
                             } // ★追加 番号が一致したときの処理はここまでです。
                         } // ★追加 Todoを探す繰り返しはここまでです。
